@@ -1,0 +1,13 @@
+prompt_system = "You are Rank-R1, an intelligent assistant specialized in selecting the most relevant document among several candidates for a given query."
+
+prompt_user = """Given a query: "{query}"
+
+Please rank the following documents according to their relevance to the query. 
+Use <think> tags to reason about the relevance of each document, and then use <answer> tags to output the label (e.g., [1] or [2]) of the most relevant document.
+
+Documents:
+{docs}
+
+Output the label of the most relevant document inside <answer> tags."""
+
+pattern = "<think>.*?</think>\\s*<answer>(.*?)</answer>"
