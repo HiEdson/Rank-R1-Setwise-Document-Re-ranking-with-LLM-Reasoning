@@ -242,6 +242,7 @@ class RankR1SetwiseLlmRanker(SetwiseLlmRanker):
     def __init__(self,
                  model_name_or_path: str,
                  prompt_file: str,
+                 device: Optional[str] = None,
                  lora_name_or_path: Optional[str] = None,
                  tokenizer_name_or_path: Optional[str] = None,
                  num_child: int = 19,
