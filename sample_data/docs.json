@@ -1,0 +1,22 @@
+{
+    "d1": {
+        "title": "Paris Guide",
+        "text": "Paris is the capital and most populous city of France."
+    },
+    "d2": {
+        "title": "London Info",
+        "text": "London is the capital of England and the United Kingdom."
+    },
+    "d3": {
+        "title": "Steak Recipe",
+        "text": "To cook a perfect steak, use a cast iron skillet and plenty of butter."
+    },
+    "d4": {
+        "title": "Vegetable Soup",
+        "text": "This soup is made with carrots, celery, and onions."
+    },
+    "d5": {
+        "title": "France Trivia",
+        "text": "France is a country in Western Europe."
+    }
+}

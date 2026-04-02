@@ -180,3 +180,11 @@ if __name__ == '__main__':
         sys.exit(1)
     
     main(args)
+
+
+
+
+# python run.py run --model_name_or_path google/flan-t5-small 
+# --run_path sample_data/bm25_simulated.run --save_path sample_data/reranked.txt 
+# --queries_path sample_data/queries.json --docs_path sample_data/docs.json 
+# --device cpu setwise --num_child 2 --k 5 --reasoning

@@ -1,0 +1,5 @@
+q1	Q0	d1	1	-1	RankR1Core
+q1	Q0	d5	2	-2	RankR1Core
+q1	Q0	d2	3	-3	RankR1Core
+q2	Q0	d3	1	-1	RankR1Core
+q2	Q0	d4	2	-2	RankR1Core
