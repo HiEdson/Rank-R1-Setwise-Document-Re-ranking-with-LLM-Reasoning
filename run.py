@@ -47,35 +47,27 @@ def write_run_file(path, results, tag):
 
 
 def main(args):
-    # This is a clean example of how to initialize and run the ranker programmatically.
-    if args.run.prompt_file:
-        logger.info(f"Initializing RankR1SetwiseLlmRanker with prompt: {args.run.prompt_file}")
-        ranker = RankR1SetwiseLlmRanker(
-            model_name_or_path=args.run.model_name_or_path,
-            tokenizer_name_or_path=args.run.tokenizer_name_or_path,
-            lora_name_or_path=args.run.lora_path_or_name,
-            device=args.run.device,
-            cache_dir=args.run.cache_dir,
-            num_child=args.setwise.num_child,
-            scoring=args.run.scoring,
-            method=args.setwise.method,
-            num_permutation=args.setwise.num_permutation,
-            prompt_file=args.run.prompt_file,
-            k=args.setwise.k
-        )
+    # Initialization
+    # Use reasoning if explicitly requested or if a prompt file is provided
+    use_reasoning = args.setwise.reasoning or (args.run.prompt_file is not None)
+    
+    if use_reasoning:
+        logger.info("Initializing SetwiseLlmRanker with R1 Reasoning enabled")
     else:
         logger.info("Initializing standard SetwiseLlmRanker")
-        ranker = SetwiseLlmRanker(
-            model_name_or_path=args.run.model_name_or_path,
-            tokenizer_name_or_path=args.run.tokenizer_name_or_path,
-            device=args.run.device,
-            cache_dir=args.run.cache_dir,
-            num_child=args.setwise.num_child,
-            scoring=args.run.scoring,
-            method=args.setwise.method,
-            num_permutation=args.setwise.num_permutation,
-            k=args.setwise.k
-        )
+        
+    ranker = SetwiseLlmRanker(
+        model_name_or_path=args.run.model_name_or_path,
+        tokenizer_name_or_path=args.run.tokenizer_name_or_path,
+        device=args.run.device,
+        cache_dir=args.run.cache_dir,
+        num_child=args.setwise.num_child,
+        scoring=args.run.scoring,
+        method=args.setwise.method,
+        num_permutation=args.setwise.num_permutation,
+        k=args.setwise.k,
+        reasoning=use_reasoning
+    )
 
     # Data Loading (Pyserini, ir_datasets, or Local files)
     query_map = {}
@@ -180,6 +172,7 @@ if __name__ == '__main__':
     setwise_parser.add_argument('--method', type=str, default='heapsort', choices=['heapsort', 'bubblesort'])
     setwise_parser.add_argument('--k', type=int, default=10)
     setwise_parser.add_argument('--num_permutation', type=int, default=1)
+    setwise_parser.add_argument('--reasoning', action='store_true', help='Enable R1-style reasoning (hardcoded prompt).')
 
     args = parse_args(parser, commands)
     if not args.run or not args.setwise:
