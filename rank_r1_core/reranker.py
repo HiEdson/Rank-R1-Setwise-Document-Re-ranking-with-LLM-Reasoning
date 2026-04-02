@@ -65,7 +65,7 @@ class SetwiseLlmRanker(LlmRanker):
         self.config = AutoConfig.from_pretrained(model_name_or_path, cache_dir=cache_dir)
         
         if self.config.model_type == 't5':
-            self.tokenizer = T5Tokenizer.from_pretrained(
+            self.tokenizer = AutoTokenizer.from_pretrained(
                 tokenizer_name_or_path if tokenizer_name_or_path is not None else model_name_or_path,
                 cache_dir=cache_dir
             )
@@ -79,7 +79,7 @@ class SetwiseLlmRanker(LlmRanker):
                                                            return_tensors="pt",
                                                            add_special_tokens=False).to(self.device) if self.tokenizer else None
 
-            self.target_token_ids = self.tokenizer.batch_encode_plus(
+            self.target_token_ids = self.tokenizer(
                 [f'<pad> Passage {self.CHARACTERS[i]}' for i in range(len(self.CHARACTERS))],
                 return_tensors="pt",
                 add_special_tokens=False,
